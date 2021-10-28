@@ -3,6 +3,7 @@ import "./ExpenseFilter.css";
 
 const ExpenseFilter = (props) => {
 
+  // Listen to the change event and the selected year got forwarded to the Expenses component
   const dropdownChangeHandler = (e) => {
     props.onChangeFilter(e.target.value);
   }

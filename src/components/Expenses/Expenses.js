@@ -9,6 +9,7 @@ const Expenses = (props) => {
 
   const [filteredYear, setFilteredYear] = useState('2021');
 
+  // Listen to the selected year who just got forwarded and store it into a state
   const filterChangeHandler = (selectedYear) => {
     setFilteredYear(selectedYear);
     console.log("From Expenses.js");
