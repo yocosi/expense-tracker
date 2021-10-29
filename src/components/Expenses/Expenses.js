@@ -12,18 +12,22 @@ const Expenses = (props) => {
   // Listen to the selected year who just got forwarded and store it into a state
   const filterChangeHandler = (selectedYear) => {
     setFilteredYear(selectedYear);
-    console.log("From Expenses.js");
-    console.log(selectedYear);
   }
+
+  // Send back a filtered expenses array based on the expenses year and the selected year of the dropdown
+  const filteredExpenses = props.items.filter((expense) => {
+    return expense.date.getFullYear().toString() === filteredYear;
+  })
 
   return (
     <Card className="expenses">
       <ExpenseFilter originalYear={filteredYear} onChangeFilter={filterChangeHandler} />
-      {props.items.map((v, i, a) => {
+      {filteredExpenses.map((expense) => {
         return (<ExpenseItem
-          title={props.items[i].title}
-          amount={props.items[i].amount}
-          date={props.items[i].date}
+          key={expense.id} // Avoid running into bugs while adding items dynamically
+          title={expense.title}
+          amount={expense.amount}
+          date={expense.date}
         />)
       })}
     </Card>
