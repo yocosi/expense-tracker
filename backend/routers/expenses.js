@@ -14,4 +14,18 @@ router.post('/expenses', async (req, res) => {
   }
 })
 
+router.delete('/expenses/:id', async (req, res) => {
+  const _id = req.params.id;
+
+  try {
+    const expenses = await Expense.findByIdAndDelete({ _id: _id });
+    if (!expenses) {
+      return res.status(404).send({ error: "Unable to find the expense" });
+    }
+    res.status(200).send(expenses);
+  } catch (error) {
+    res.status(400).send(error);
+  }
+})
+
 module.exports = router;
