@@ -7,7 +7,6 @@ import ExpensesChart from './ExpensesChart';
 
 
 const Expenses = (props) => {
-
   const [filteredYear, setFilteredYear] = useState('2021');
 
   // Listen to the selected year who just got forwarded and store it into a state
@@ -17,9 +16,9 @@ const Expenses = (props) => {
 
   // Send back a filtered expenses array based on the expenses date and the selected year of the dropdown
   const filteredExpenses = props.items.filter((expense) => {
-    return expense.date.getFullYear().toString() === filteredYear;
+    const date = new Date(expense.date.toString())
+    return date.getFullYear().toString() === filteredYear;
   })
-
 
   return (
     <Card className="expenses">

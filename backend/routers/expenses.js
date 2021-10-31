@@ -1,8 +1,16 @@
 const express = require("express");
 const Expense = require('../models/expense');
 const router = new express.Router();
+const cors = require('cors');
 
-router.post('/expenses', async (req, res) => {
+let corsOptions = {
+  origin: '*',
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  optionsSuccessStatus: 200
+}
+router.use(cors());
+
+router.post('/expenses', cors(corsOptions), async (req, res) => {
 
   const expenses = new Expense(req.body);
 
@@ -14,7 +22,16 @@ router.post('/expenses', async (req, res) => {
   }
 })
 
-router.delete('/expenses/:id', async (req, res) => {
+router.get('/expenses', cors(corsOptions), async (req, res) => {
+  try {
+    let expense = await Expense.find();
+    res.send(expense);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+})
+
+router.delete('/expenses/:id', cors(corsOptions), async (req, res) => {
   const _id = req.params.id;
 
   try {
